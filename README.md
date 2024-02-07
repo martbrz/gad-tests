@@ -27,3 +27,5 @@ Run all tests:
 ```
 npx playwright test
 ```
+
+For more usage cases look in `package.json` scripts section.
