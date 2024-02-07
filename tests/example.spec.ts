@@ -17,4 +17,6 @@ test('get started link', async ({ page }) => {
   await expect(
     page.getByRole('heading', { name: 'Installation' }),
   ).toBeVisible();
+
+  await page.getByRole('link', { name: 'Get started' }).click();
 });
