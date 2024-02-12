@@ -1,10 +1,11 @@
 import { LoginPage } from '../src/pages/pages/login.page';
 import { WelcomePage } from '../src/pages/pages/welcome.page';
+import { testUser1 } from '../src/test-data/user.data';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify login', () => {
   test('Log in with correct credentials @GAD-R02 @S02', async ({ page }) => {
-    const email = 'Moses.Armstrong@Feest.ca';
+    const email = testUser1.userEmail;
     const password = 'test1';
     const loginPage = new LoginPage(page);
     await loginPage.goto();
