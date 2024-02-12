@@ -5,6 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  globalSetup: 'src/global-setup.ts',
   timeout: 5000,
   expect: { timeout: 1000 },
   fullyParallel: true,
@@ -14,7 +15,8 @@ export default defineConfig({
   reporter: 'html',
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://localhost:3000',
+    //baseURL: 'http://localhost:3000',
+    baseURL: process.env.BASE_URL,
     actionTimeout: 0,
     trace: 'on',
     // trace: 'retain-on-failure',
