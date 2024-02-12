@@ -1,6 +1,6 @@
-import { ArticlesPage } from '../../src/pages/articles.page';
-import { CommentsPage } from '../../src/pages/comments.page';
-import { HomePage } from '../../src/pages/home.page';
+import { ArticlesPage } from '../../src/pages/pages/articles.page';
+import { CommentsPage } from '../../src/pages/pages/comments.page';
+import { HomePage } from '../../src/pages/pages/home.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify main menu buttons', () => {
