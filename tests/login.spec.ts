@@ -4,9 +4,9 @@ import { testUser1 } from '../src/test-data/user.data';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify login', () => {
-  test('Log in with correct credentials @GAD-R02 @S02', async ({ page }) => {
+  test('Log in with correct credentials @GAD-R02', async ({ page }) => {
     const email = testUser1.userEmail;
-    const password = 'test1';
+    const password = testUser1.userPassword;
     const loginPage = new LoginPage(page);
     await loginPage.goto();
 
