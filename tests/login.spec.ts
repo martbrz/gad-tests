@@ -16,4 +16,17 @@ test.describe('Verify login', () => {
 
     expect(welcomePageTitle).toContain('Welcome');
   });
+
+  test('Reject log in with incorrect password @GAD-R02', async ({ page }) => {
+    const email = testUser1.userEmail;
+    const password = 'incorrectPassword';
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+
+    await loginPage.login(email, password);
+
+    await expect.soft(loginPage.loginError).toHaveText(loginPage.errorMessage);
+    const loginPageTitle = await loginPage.title();
+    expect.soft(loginPageTitle).toContain('Login');
+  });
 });
