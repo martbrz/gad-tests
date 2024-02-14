@@ -13,6 +13,6 @@ export class BasePage {
   }
 
   async waitForPageToLoadURL(): Promise<void> {
-    await this.page.waitForURL(this.url);
+    await this.page.waitForURL(this.url, { timeout: 5000 });
   }
 }
