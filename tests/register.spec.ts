@@ -1,3 +1,4 @@
+import { RegisterUser } from '../src/models/user.model';
 import { LoginPage } from '../src/pages/pages/login.page';
 import { RegisterPage } from '../src/pages/pages/register.page';
 import { WelcomePage } from '../src/pages/pages/welcome.page';
@@ -9,23 +10,24 @@ test.describe('Verify register', () => {
   test('Register with correct data @GAD-R03-01 @GAD-R03-02 @GAD-R03-03', async ({
     page,
   }) => {
-    const userFirstName = faker.person.firstName().replace(/[^A-Za-z]/g, '');
-    const userLastName = faker.person.lastName();
-    const userEmail = faker.internet.email({
-      firstName: userFirstName,
-      lastName: userLastName,
+    const registerUserData: RegisterUser = {
+      userFirstName: faker.person.firstName().replace(/[^A-Za-z]/g, ''),
+      userLastName: faker.person.lastName(),
+      userEmail: '',
+      userPassword: faker.internet.password(),
+    };
+
+    registerUserData.userEmail = faker.internet.email({
+      firstName: registerUserData.userFirstName,
+      lastName: registerUserData.userLastName,
     });
-    const userPassword = faker.internet.password();
+
     const expectedAlertPopUpText = 'User created';
 
     const registerPage = new RegisterPage(page);
     await registerPage.goto();
-    await registerPage.register(
-      userFirstName,
-      userLastName,
-      userEmail,
-      userPassword,
-    );
+
+    await registerPage.register(registerUserData);
 
     await expect(registerPage.alertPopUp).toHaveText(expectedAlertPopUpText);
     const loginPage = new LoginPage(page);
@@ -33,7 +35,10 @@ test.describe('Verify register', () => {
     const loginPageTitle = await loginPage.title();
     await expect.soft(loginPageTitle).toContain('Login');
 
-    await loginPage.login(userEmail, userPassword);
+    await loginPage.login(
+      registerUserData.userEmail,
+      registerUserData.userPassword,
+    );
     const welcomePage = new WelcomePage(page);
     const welcomePageTitle = await welcomePage.title();
     await expect(welcomePageTitle).toContain('Welcome');
