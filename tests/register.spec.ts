@@ -67,13 +67,6 @@ test.describe('Verify register', () => {
   test('Not register with incorrect data - email not provided @GAD-R03-04', async ({
     page,
   }) => {
-    // const registerUserData: RegisterUser = {
-    //   userFirstName: faker.person.firstName().replace(/[^A-Za-z]/g, ''),
-    //   userLastName: faker.person.lastName().replace(/[^A-Za-z]/g, ''),
-    //   userEmail: '#$%',
-    //   userPassword: faker.internet.password(),
-    // };
-
     const expectedErrorText = 'This field is required';
 
     const registerPage = new RegisterPage(page);
