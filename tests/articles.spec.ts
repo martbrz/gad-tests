@@ -1,3 +1,4 @@
+import { randomNewArticle } from '../src/factories/article.factory';
 import { ArticlePage } from '../src/pages/pages/article.page copy';
 import { ArticlesPage } from '../src/pages/pages/articles.page';
 import { LoginPage } from '../src/pages/pages/login.page';
@@ -17,17 +18,17 @@ test.describe('Verify login', () => {
     const addArticleView = new AddArticleView(page);
     await expect.soft(addArticleView.header).toBeVisible();
 
-    const newArticleTitle = 'title';
-    const newArticleBody = 'body';
-    await addArticleView.titleInput.fill(newArticleTitle);
-    await addArticleView.bodyInput.fill(newArticleBody);
-    await addArticleView.saveButton.click();
+    const articleData = randomNewArticle();
+
+    await addArticleView.createArticle(articleData);
+
     await expect(addArticleView.alertPopUp).toContainText(
       'Article was created',
     );
-
     const articlePage = new ArticlePage(page);
-    await expect(articlePage.articleTitle).toHaveText(newArticleTitle);
-    await expect(articlePage.articleBody).toHaveText(newArticleBody);
+    await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
+    await expect.soft(articlePage.articleBody).toHaveText(articleData.body, {
+      useInnerText: true,
+    });
   });
 });

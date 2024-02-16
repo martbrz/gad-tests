@@ -1,3 +1,4 @@
+import { AddArticleModel } from '../models/article.model';
 import { Page } from '@playwright/test';
 
 export class AddArticleView {
@@ -8,4 +9,10 @@ export class AddArticleView {
   alertPopUp = this.page.getByTestId('alert-popup');
 
   constructor(private page: Page) {}
+
+  async createArticle(addArticle: AddArticleModel): Promise<void> {
+    await this.titleInput.fill(addArticle.title);
+    await this.bodyInput.fill(addArticle.body);
+    await this.saveButton.click();
+  }
 }
