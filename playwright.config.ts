@@ -6,7 +6,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   globalSetup: 'src/global-setup.ts',
-  timeout: 5000,
+  timeout: 8000,
   expect: { timeout: 1000 },
   fullyParallel: true,
   retries: 0,

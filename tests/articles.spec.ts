@@ -31,4 +31,44 @@ test.describe('Verify login', () => {
       useInnerText: true,
     });
   });
+
+  test('Create a new article with empty title @GAD-R04', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const articlesPage = new ArticlesPage(page);
+    const addArticleView = new AddArticleView(page);
+
+    const articleData = randomNewArticle();
+    articleData.title = '';
+    const expectedErrorMessage = 'Article was not created';
+
+    await loginPage.goto();
+    await loginPage.login(testUser1);
+    await articlesPage.goto();
+
+    await articlesPage.addArticleButtonLoggedUser.click();
+    await expect.soft(addArticleView.header).toBeVisible();
+
+    await addArticleView.createArticle(articleData);
+    await expect(addArticleView.alertPopUp).toContainText(expectedErrorMessage);
+  });
+
+  test('Create a new article with empty body @GAD-R04', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const articlesPage = new ArticlesPage(page);
+    const addArticleView = new AddArticleView(page);
+    const expectedErrorMessage = 'Article was not created';
+    const articleData = randomNewArticle();
+    articleData.body = '';
+
+    await loginPage.goto();
+    await loginPage.login(testUser1);
+    await articlesPage.goto();
+    await articlesPage.addArticleButtonLoggedUser.click();
+
+    await expect.soft(addArticleView.header).toBeVisible();
+
+    await addArticleView.createArticle(articleData);
+
+    await expect(addArticleView.alertPopUp).toContainText(expectedErrorMessage);
+  });
 });
