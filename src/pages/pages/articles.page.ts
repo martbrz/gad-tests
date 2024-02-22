@@ -11,4 +11,7 @@ export class ArticlesPage extends BasePage {
   constructor(page: Page) {
     super(page);
   }
+  async goToArticle(articleTitle: string): Promise<void> {
+    this.page.getByText(articleTitle).click();
+  }
 }

@@ -10,8 +10,6 @@ export function randomNewArticle(
   if (titleLength) title = faker.string.alpha(titleLength);
   else title = faker.lorem.sentence();
 
-  //const title = faker.lorem.sentence();
-
   const body = faker.lorem.paragraphs(bodyParagraphs);
 
   const newArticle: AddArticleModel = { title: title, body: body };

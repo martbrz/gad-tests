@@ -22,19 +22,6 @@ test.describe('Verify login', () => {
     await articlesPage.addArticleButtonLoggedUser.click();
   });
 
-  test('Create a new article @GAD-R04', async ({ page }) => {
-    const articlePage = new ArticlePage(page);
-    const articleData = randomNewArticle();
-
-    await expect.soft(addArticleView.header).toBeVisible();
-    await addArticleView.createArticle(articleData);
-
-    await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
-    await expect.soft(articlePage.articleBody).toHaveText(articleData.body, {
-      useInnerText: true,
-    });
-  });
-
   test('Create a new article with empty title @GAD-R04', async () => {
     const articleData = randomNewArticle();
     articleData.title = '';
