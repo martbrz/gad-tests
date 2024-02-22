@@ -1,5 +1,5 @@
 import { randomNewArticle } from '../src/factories/article.factory';
-import { ArticlePage } from '../src/pages/pages/article.page copy';
+import { ArticlePage } from '../src/pages/pages/article.page';
 import { ArticlesPage } from '../src/pages/pages/articles.page';
 import { LoginPage } from '../src/pages/pages/login.page';
 import { testUser1 } from '../src/test-data/user.data';
