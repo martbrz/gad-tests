@@ -58,28 +58,32 @@ test.describe('Verify login', () => {
     await expect(addArticleView.alertPopUp).toContainText(expectedErrorMessage);
   });
 
-  test('Create a new article with exceeding 128 signs title @GAD-R04_02', async () => {
-    const expectedErrorMessage = 'Article was not created';
-    const articleData = randomNewArticle(129);
+  test.describe('Title length', () => {
+    test('Create a new article with exceeding 128 signs title @GAD-R04_02', async () => {
+      const expectedErrorMessage = 'Article was not created';
+      const articleData = randomNewArticle(129);
 
-    await expect.soft(addArticleView.header).toBeVisible();
+      await expect.soft(addArticleView.header).toBeVisible();
 
-    await addArticleView.createArticle(articleData);
-    await expect(addArticleView.alertPopUp).toContainText(expectedErrorMessage);
-  });
+      await addArticleView.createArticle(articleData);
+      await expect(addArticleView.alertPopUp).toContainText(
+        expectedErrorMessage,
+      );
+    });
 
-  test('Create a new article with title containing  128 signs @GAD-R04_02', async ({
-    page,
-  }) => {
-    const articlePage = new ArticlePage(page);
-    const expectedMessage = 'Article was created';
-    const articleData = randomNewArticle(128);
+    test('Create a new article with title containing  128 signs @GAD-R04_02', async ({
+      page,
+    }) => {
+      const articlePage = new ArticlePage(page);
+      const expectedMessage = 'Article was created';
+      const articleData = randomNewArticle(128);
 
-    await expect.soft(addArticleView.header).toBeVisible();
+      await expect.soft(addArticleView.header).toBeVisible();
 
-    await addArticleView.createArticle(articleData);
+      await addArticleView.createArticle(articleData);
 
-    await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
-    await expect(addArticleView.alertPopUp).toContainText(expectedMessage);
+      await expect.soft(articlePage.articleTitle).toHaveText(articleData.title);
+      await expect(addArticleView.alertPopUp).toContainText(expectedMessage);
+    });
   });
 });
