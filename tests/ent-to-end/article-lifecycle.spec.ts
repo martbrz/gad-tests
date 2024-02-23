@@ -48,7 +48,7 @@ test.describe('Create, verify and delete article', () => {
     });
   });
 
-  test('User can delete his own article @GAD-R04-03', async ({ page }) => {
+  test('User can delete his own article @GAD-R04-03', async ({}) => {
     await articlesPage.goToArticle(articleData.title);
 
     await articlePage.deleteArticle();
