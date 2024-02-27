@@ -16,23 +16,26 @@ test.describe('Verify login', () => {
     const expectedWelcomePageTitle = 'Welcome';
 
     const loginPage = new LoginPage(page);
+    const welcomePage = new WelcomePage(page);
+
     await loginPage.goto();
     await loginPage.login(testUser1);
 
-    const welcomePage = new WelcomePage(page);
     const welcomePageTitle = await welcomePage.getTitle();
 
     expect(welcomePageTitle).toContain(expectedWelcomePageTitle);
   });
 
   test('Reject log in with incorrect password @GAD-R02', async ({ page }) => {
+    const expectedLoginTitle = 'Login';
+
+    const loginPage = new LoginPage(page);
+
     const LoginUserModelData: LoginUserModel = {
       email: testUser1.email,
       password: 'incorrectPassword',
     };
-    const expectedLoginTitle = 'Login';
 
-    const loginPage = new LoginPage(page);
     await loginPage.goto();
 
     await loginPage.login(LoginUserModelData);

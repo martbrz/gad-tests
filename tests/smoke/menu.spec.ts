@@ -41,10 +41,10 @@ test.describe('Verify main menu buttons', () => {
 
     const articlePage = new ArticlesPage(page);
     const commentsPage = new CommentsPage(page);
+    const homePage = new HomePage(page);
 
     await articlePage.goto();
     await commentsPage.mainMenu.homePageButton.click();
-    const homePage = new HomePage(page);
     const title = await homePage.getTitle();
 
     expect(title).toContain(expectedHomePageTitle);
