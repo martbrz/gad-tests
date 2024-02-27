@@ -28,14 +28,14 @@ test.describe('Verify register', () => {
     await expect(registerPage.alertPopUp).toHaveText(expectedAlertPopUpText);
 
     await loginPage.waitForPageToLoadURL();
-    const loginPageTitle = await loginPage.title();
+    const loginPageTitle = await loginPage.getTitle();
     await expect.soft(loginPageTitle).toContain('Login');
 
     await loginPage.login({
       email: registerUserData.userEmail,
       password: registerUserData.userPassword,
     });
-    const welcomePageTitle = await welcomePage.title();
+    const welcomePageTitle = await welcomePage.getTitle();
     await expect(welcomePageTitle).toContain('Welcome');
   });
 
