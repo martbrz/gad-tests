@@ -1,4 +1,4 @@
-import { LoginUser } from '../src/models/user.model';
+import { LoginUserModel } from '../src/models/user.model';
 import { LoginPage } from '../src/pages/pages/login.page';
 import { WelcomePage } from '../src/pages/pages/welcome.page';
 import { testUser1 } from '../src/test-data/user.data';
@@ -9,7 +9,7 @@ test.describe('Verify login', () => {
     // const email = testUser1.userEmail;
     // const password = testUser1.userPassword;
 
-    // const loginUserData: LoginUser = {
+    // const LoginUserModelData: LoginUserModel = {
     //   email: testUser1.email,
     //   password: testUser1.password,
     // };
@@ -24,7 +24,7 @@ test.describe('Verify login', () => {
   });
 
   test('Reject log in with incorrect password @GAD-R02', async ({ page }) => {
-    const loginUserData: LoginUser = {
+    const LoginUserModelData: LoginUserModel = {
       email: testUser1.email,
       password: 'incorrectPassword',
     };
@@ -32,7 +32,7 @@ test.describe('Verify login', () => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
 
-    await loginPage.login(loginUserData);
+    await loginPage.login(LoginUserModelData);
 
     await expect.soft(loginPage.loginError).toHaveText(loginPage.errorMessage);
     const loginPageTitle = await loginPage.title();
