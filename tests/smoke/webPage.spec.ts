@@ -14,21 +14,25 @@ test.describe('Verify service main pages', () => {
   });
 
   test('articles page title @GAD-R01-02', async ({ page }) => {
+    const expectedArticleTitle = 'Articles';
+
     const articlePage = new ArticlesPage(page);
     await articlePage.goto();
 
     const title = await articlePage.getTitle();
 
-    expect(title).toContain('Articles');
+    expect(title).toContain(expectedArticleTitle);
   });
 
   test('comments page title @GAD-R01-02', async ({ page }) => {
+    const expectedCommentsTitle = 'Comments';
+
     const commentsPage = new CommentsPage(page);
     await commentsPage.goto();
 
     const title = await commentsPage.getTitle();
 
-    expect(title).toContain('Comments');
+    expect(title).toContain(expectedCommentsTitle);
   });
 
   test('home page title simple', async ({ page }) => {
