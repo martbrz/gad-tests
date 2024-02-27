@@ -1,4 +1,4 @@
-import { randomNewArticle } from '../../src/factories/article.factory';
+import { prepareRandomNewArticle } from '../../src/factories/article.factory';
 import { AddArticleModel } from '../../src/models/article.model';
 import { ArticlePage } from '../../src/pages/pages/article.page';
 import { ArticlesPage } from '../../src/pages/pages/articles.page';
@@ -27,7 +27,7 @@ test.describe('Create, verify and delete article', () => {
   });
 
   test('Create a new article @GAD-R04', async () => {
-    articleData = randomNewArticle();
+    articleData = prepareRandomNewArticle();
 
     await articlesPage.addArticleButtonLoggedUser.click();
     await expect.soft(addArticleView.addNewHeader).toBeVisible();

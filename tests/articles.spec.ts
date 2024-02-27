@@ -1,4 +1,4 @@
-import { randomNewArticle } from '../src/factories/article.factory';
+import { prepareRandomNewArticle } from '../src/factories/article.factory';
 import { ArticlePage } from '../src/pages/pages/article.page';
 import { ArticlesPage } from '../src/pages/pages/articles.page';
 import { LoginPage } from '../src/pages/pages/login.page';
@@ -23,7 +23,7 @@ test.describe('Verify login', () => {
   });
 
   test('Create a new article with empty title @GAD-R04', async () => {
-    const articleData = randomNewArticle();
+    const articleData = prepareRandomNewArticle();
     articleData.title = '';
     const expectedErrorMessage = 'Article was not created';
 
@@ -35,7 +35,7 @@ test.describe('Verify login', () => {
 
   test('Create a new article with empty body @GAD-R04_01', async () => {
     const expectedErrorMessage = 'Article was not created';
-    const articleData = randomNewArticle();
+    const articleData = prepareRandomNewArticle();
     articleData.body = '';
 
     await expect.soft(addArticleView.addNewHeader).toBeVisible();
@@ -48,7 +48,7 @@ test.describe('Verify login', () => {
   test.describe('Title length', () => {
     test('Create a new article with exceeding 128 signs title @GAD-R04_02', async () => {
       const expectedErrorMessage = 'Article was not created';
-      const articleData = randomNewArticle(129);
+      const articleData = prepareRandomNewArticle(129);
 
       await expect.soft(addArticleView.addNewHeader).toBeVisible();
 
@@ -63,7 +63,7 @@ test.describe('Verify login', () => {
     }) => {
       const articlePage = new ArticlePage(page);
       const expectedMessage = 'Article was created';
-      const articleData = randomNewArticle(128);
+      const articleData = prepareRandomNewArticle(128);
 
       await expect.soft(addArticleView.addNewHeader).toBeVisible();
 
