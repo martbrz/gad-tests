@@ -27,7 +27,7 @@ test.describe('Verify login', () => {
     articleData.title = '';
     const expectedErrorMessage = 'Article was not created';
 
-    await expect.soft(addArticleView.header).toBeVisible();
+    await expect.soft(addArticleView.addNewHeader).toBeVisible();
 
     await addArticleView.createArticle(articleData);
     await expect(addArticleView.alertPopUp).toContainText(expectedErrorMessage);
@@ -38,7 +38,7 @@ test.describe('Verify login', () => {
     const articleData = randomNewArticle();
     articleData.body = '';
 
-    await expect.soft(addArticleView.header).toBeVisible();
+    await expect.soft(addArticleView.addNewHeader).toBeVisible();
 
     await addArticleView.createArticle(articleData);
 
@@ -50,7 +50,7 @@ test.describe('Verify login', () => {
       const expectedErrorMessage = 'Article was not created';
       const articleData = randomNewArticle(129);
 
-      await expect.soft(addArticleView.header).toBeVisible();
+      await expect.soft(addArticleView.addNewHeader).toBeVisible();
 
       await addArticleView.createArticle(articleData);
       await expect(addArticleView.alertPopUp).toContainText(
@@ -65,7 +65,7 @@ test.describe('Verify login', () => {
       const expectedMessage = 'Article was created';
       const articleData = randomNewArticle(128);
 
-      await expect.soft(addArticleView.header).toBeVisible();
+      await expect.soft(addArticleView.addNewHeader).toBeVisible();
 
       await addArticleView.createArticle(articleData);
 
