@@ -8,6 +8,7 @@ import { LoginPage } from '../../src/pages/pages/login.page';
 import { testUser1 } from '../../src/test-data/user.data';
 import { AddArticleView } from '../../src/views/add-article.view';
 import { AddCommentView } from '../../src/views/add-comment.view';
+import { EditCommentView } from '../../src/views/edit-comment.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Create, verify and delete comment', () => {
@@ -18,6 +19,7 @@ test.describe('Create, verify and delete comment', () => {
   let articlePage: ArticlePage;
   let addCommentView: AddCommentView;
   let commentPage: CommentPage;
+  let editComment: EditCommentView;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
@@ -26,6 +28,7 @@ test.describe('Create, verify and delete comment', () => {
     articlePage = new ArticlePage(page);
     addCommentView = new AddCommentView(page);
     commentPage = new CommentPage(page);
+    editComment = new EditCommentView(page);
 
     articleData = prepareRandomNewArticle();
     await loginPage.goto();
@@ -39,6 +42,7 @@ test.describe('Create, verify and delete comment', () => {
   test('Create a new comment @GAD-R04', async () => {
     const expectedAddCommentHeader = 'Add New Comment ';
     const expectedCommentCreatedPopUp = ' Comment was created';
+    const expectedCommentEditPagePopUp = 'Comment was updated';
 
     const newCommentData = prepareRandomComment();
 
@@ -47,8 +51,7 @@ test.describe('Create, verify and delete comment', () => {
       expectedAddCommentHeader,
     );
 
-    await addCommentView.bodyInput.fill(newCommentData.body);
-    await addCommentView.saveButton.click();
+    addCommentView.createComment(newCommentData);
 
     await expect(articlePage.alertPopUp).toHaveText(
       expectedCommentCreatedPopUp,
@@ -61,5 +64,18 @@ test.describe('Create, verify and delete comment', () => {
     await articleComment.link.click();
 
     await expect(commentPage.commentBody).toHaveText(newCommentData.body);
+
+    const editCommentData = prepareRandomComment();
+
+    await commentPage.editButton.click();
+    editComment.updateComment(editCommentData);
+    await expect(commentPage.commentBody).toHaveText(editCommentData.body);
+    await expect(commentPage.alertPopUp).toHaveText(
+      expectedCommentEditPagePopUp,
+    );
+    await commentPage.returnLink.click();
+    const editedComment = articlePage.getArticleComment(editCommentData.body);
+
+    await expect(editedComment.body).toHaveText(editCommentData.body);
   });
 });
