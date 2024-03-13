@@ -1,4 +1,5 @@
 import { prepareRandomNewArticle } from '../../src/factories/article.factory';
+import { prepareRandomComment } from '../../src/factories/comment.factory';
 import { AddArticleModel } from '../../src/models/article.model';
 import { ArticlePage } from '../../src/pages/pages/article.page';
 import { ArticlesPage } from '../../src/pages/pages/articles.page';
@@ -36,20 +37,29 @@ test.describe('Create, verify and delete comment', () => {
 
   // eslint-disable-next-line playwright/expect-expect
   test('Create a new comment @GAD-R04', async () => {
+    const expectedAddCommentHeader = 'Add New Comment ';
+    const expectedCommentCreatedPopUp = ' Comment was created';
+
+    const newCommentData = prepareRandomComment();
+
     await articlePage.addCommentButton.click();
-    await expect(addCommentView.addNewHeader).toHaveText('Add New Comment');
-    const commentText = 'hello!';
-    await addCommentView.bodyInput.fill(commentText);
+    await expect(addCommentView.addNewHeader).toHaveText(
+      expectedAddCommentHeader,
+    );
+
+    await addCommentView.bodyInput.fill(newCommentData.body);
     await addCommentView.saveButton.click();
 
-    await expect(articlePage.alertPopUp).toHaveText('Comment was created');
+    await expect(articlePage.alertPopUp).toHaveText(
+      expectedCommentCreatedPopUp,
+    );
 
-    const articleComment = articlePage.getArticleComment(commentText);
+    const articleComment = articlePage.getArticleComment(newCommentData.body);
 
-    await expect(articleComment.body).toHaveText(commentText);
+    await expect(articleComment.body).toHaveText(newCommentData.body);
 
     await articleComment.link.click();
 
-    await expect(commentPage.commentBody).toHaveText(commentText);
+    await expect(commentPage.commentBody).toHaveText(newCommentData.body);
   });
 });
